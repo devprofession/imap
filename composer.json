@@ -3,6 +3,12 @@
     "description": "Object-oriented IMAP for PHP",
     "keywords": [ "email", "mail", "imap" ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/devprofession/transcoder.git"
+        }
+    ],
     "authors": [
         {
             "name": "David de Boer",
@@ -11,18 +17,12 @@
         {
             "name": "Community contributors",
             "homepage": "https://github.com/ddeboer/imap/graphs/contributors"
-        }   
-    ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/devprofession/transcoder"
         }
     ],
     "require": {
         "php": ">=5.4.0",
         "ext-imap": "*",
-        "ddeboer/transcoder": "dev-dev-prof"
+        "ddeboer/transcoder": "dev-master"
     },
     "require-dev": {
         "ext-mbstring": "*",
