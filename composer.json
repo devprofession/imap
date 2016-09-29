@@ -13,10 +13,16 @@
             "homepage": "https://github.com/ddeboer/imap/graphs/contributors"
         }   
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/devprofession/transcoder"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "ext-imap": "*",
-        "ddeboer/transcoder": "~1"
+        "ddeboer/transcoder": "dev-prof"
     },
     "require-dev": {
         "ext-mbstring": "*",
