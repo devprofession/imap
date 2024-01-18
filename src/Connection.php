@@ -25,8 +25,8 @@ class Connection
      */
     public function __construct($resource, $server)
     {
-        if (!is_resource($resource)) {
-            throw new \InvalidArgumentException('$resource must be a resource');
+        if ($resource === false) {
+            throw new \InvalidArgumentException('$resource must be a object');
         }
 
         $this->resource = $resource;
