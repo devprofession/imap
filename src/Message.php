@@ -319,6 +319,15 @@ class Message extends Message\Part
             }
         );
 
+        // Ellenőrizzük, hogy az üzenet létezik-e
+        $messageNo = imap_msgno($this->stream, $this->messageNumber);
+        if ($messageNo === false) {
+            // Ha az üzenet nem létezik, dobjunk kivételt
+            restore_error_handler();
+            throw new MessageDoesNotExistException($this->messageNumber, "Message does not exist");
+        }
+
+        // Ha az üzenet létezik, folytatjuk a struktúra betöltését
         $structure = imap_fetchstructure(
             $this->stream,
             $this->messageNumber,
