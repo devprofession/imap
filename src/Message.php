@@ -319,22 +319,22 @@ class Message extends Message\Part
             }
         );
 
-        // Ellenőrizzük, hogy az üzenet létezik-e
-        $messageNo = imap_msgno($this->stream, $this->messageNumber);
-        if ($messageNo === false) {
-            // Ha az üzenet nem létezik, dobjunk kivételt
-            restore_error_handler();
-            throw new MessageDoesNotExistException($this->messageNumber, "Message does not exist");
+        try {
+            $messageNo = imap_msgno($this->stream, $this->messageNumber);
+            if ($messageNo === false) {
+                throw new MessageDoesNotExistException($this->messageNumber, "Message does not exist");
+            }
+
+            $structure = imap_fetchstructure(
+                $this->stream,
+                $this->messageNumber,
+                \FT_UID
+            );
+        } catch (\Throwable $e) {
+            throw new MessageDoesNotExistException($this->messageNumber, "Message does not exist during fetch: " . $e->getMessage());
+        } finally {
+            restore_error_handler(); // Csak egyszer hívjuk meg, függetlenül attól, hogy mi történt.
         }
-
-        // Ha az üzenet létezik, folytatjuk a struktúra betöltését
-        $structure = imap_fetchstructure(
-            $this->stream,
-            $this->messageNumber,
-            \FT_UID
-        );
-
-        restore_error_handler();
 
         $this->parseStructure($structure);
     }
